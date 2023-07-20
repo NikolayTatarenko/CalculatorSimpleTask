@@ -147,11 +147,17 @@
                                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Calculate"/>
+                                                        <connections>
+                                                            <action selector="calculateDIdTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8eb-3m-X60"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ei-vy-jI6">
                                                         <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="60"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Clear"/>
+                                                        <connections>
+                                                            <action selector="clearDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t7C-g0-0dE"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -193,6 +199,14 @@
                             <constraint firstItem="b64-sj-K72" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Rzn-AV-cC6"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityField" destination="lV0-BH-41X" id="6uF-uL-kdn"/>
+                        <outlet property="ageField" destination="tHJ-JP-avA" id="qPM-ag-OKs"/>
+                        <outlet property="calculateButton" destination="5jR-db-vsj" id="anv-Yd-sCs"/>
+                        <outlet property="heightField" destination="9RF-Mk-dK6" id="78H-sD-sTL"/>
+                        <outlet property="sexSegmentControl" destination="IkI-FA-7OX" id="Ey3-ai-mio"/>
+                        <outlet property="weightField" destination="cz3-by-29m" id="1Tw-De-Ggm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

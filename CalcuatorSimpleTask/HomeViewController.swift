@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var ageField: UITextField!
     @IBOutlet weak var activityField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
+    @IBOutlet weak var resultLabel: UILabel!
+    
     let pickerView = UIPickerView()
     
     let activities = ["None", "Low", "Medium", "High"]
@@ -24,17 +26,87 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      
+        
         configureSexSegmentControl()
         configureTextFields()
         configureActivityField()
+        resetResultLabel()
         
         weightField.becomeFirstResponder()
     }
     
+    @IBAction func sexControlDidChange(_ sender: UISegmentedControl) {
+//        switch sender.selectedSegmentIndex {
+//        case 0:
+//            break
+//        case 1:
+//            break
+//        default:
+//            break
+//        }
+        clear()
+    }
+    
+    
     @IBAction func calculateDIdTap(_ sender: Any) {
+        let weight = Int(weightField.text ?? "") ?? 0
+        let height = Int(heightField.text ?? "") ?? 0
+        let age = Int(ageField.text ?? "") ?? 0
+        
+        let activityIndex = pickerView.selectedRow(inComponent: 0)
+        let activity = activities[activityIndex]
+        
+        var activityValue = 0
+        switch activity {
+        case "None": activityValue = 0
+        case "Low": activityValue = 50
+        case "Medium": activityValue = 150
+        case "High": activityValue = 250
+        default: break
+        }
+        
+        let selectedSex = sexSegmentControl.selectedSegmentIndex
+        
+        var result = ""
+        
+        switch selectedSex {
+        case 0:
+            let result = Double(10 * weight) + (6.25 * Double(height)) - Double(5 * age) + 5.0 + Double(activityValue)
+            showAlertWith(title: String(result))
+            
+        case 1:
+            let result = Double(8 * weight) + (5.25 * Double(height)) - Double(5 * age) + 5.0 - 161.0 + Double(activityValue)
+            showAlertWith(title: String(result))
+        default:
+            break
+        }
+    }
+    
+    func showAlertWith(title: String) {
+        let alert = UIAlertController(title: "Your result", message: title, preferredStyle: .alert)
+        
+        alert.addAction(.init(title: "Ok", style: .cancel ))
+        self.present(alert, animated: true)
     }
     
     @IBAction func clearDidTap(_ sender: Any) {
+       clear()
+    }
+    
+    func resetResultLabel() {
+        resultLabel.text = nil
+    }
+    
+    
+    func clear() {
+        weightField.text = nil
+        heightField.text = nil
+        ageField.text = nil
+        pickerView.selectRow(0, inComponent: 0, animated: true)
+        selectActivityBy(row: 0)
+        weightField.becomeFirstResponder()
+        resetResultLabel()
     }
     
     

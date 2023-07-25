@@ -17,38 +17,6 @@ import UIKit
 //    }
 //}
 
-enum Activity: CaseIterable {
-    case none
-    case low
-    case medium
-    case high
-    
-    var title: String {
-        switch self {
-        case .none:
-            return "None"
-        case .low:
-            return "Low"
-        case .medium:
-            return "Medium"
-        case .high:
-            return "High"
-        }
-    }
-    
-    var value: String {
-        switch self {
-        case .none:
-            return 0
-        case .low:
-            return 50
-        case .medium:
-            return 150
-        case .high:
-            return 250
-        }
-    }
-}
 
 class HomeViewController: UIViewController {
 
@@ -61,19 +29,26 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var calculateButton: UIButton!
     @IBOutlet weak var resultLabel: UILabel!
     let pickerView = UIPickerView()
-    let activities: Activity.AllCases
+    let activities: Activity.AllCases = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
-        
+        title = "Calculator"
         configureSexSegmentControl()
         configureTextFields()
         configureActivityField()
-        resetResultLabel()
-        
         weightField.becomeFirstResponder()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "activitySegue" {
+            if let activityController = segue.destination as? ActivitiesListViewController {
+                let activityIndex = self.pickerView.selectedRow(inComponent: 0)
+                let activity = self.activities[activityIndex]
+                activityController.activity = activity
+            }
+        }
     }
     
     @IBAction func sexControlDidChange(_ sender: UISegmentedControl) {
@@ -112,15 +87,17 @@ class HomeViewController: UIViewController {
         case 1:
             let result = Double(8 * weight) + (5.25 * Double(height)) - Double(5 * age) + 5.0 - 161.0 + Double(activityValue)
             showAlertWith(title: String(result))
-        default:
-            break
         }
     }
     
     func showAlertWith(title: String) {
         let alert = UIAlertController(title: "Your result", message: title, preferredStyle: .alert)
-        
         alert.addAction(.init(title: "Ok", style: .cancel ))
+        alert.addAction(.init(title: "Activity detail info", style: .default ) { _ in
+            
+            self.performSegue(withIdentifier: "activitySegue", sender: self)
+            
+        })
         self.present(alert, animated: true)
     }
     

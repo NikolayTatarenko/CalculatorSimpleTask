@@ -27,7 +27,7 @@ enum Activity: CaseIterable {
         }
     }
     
-    var value: String {
+    var value: Int {
         switch self {
         case .none:
             return 0

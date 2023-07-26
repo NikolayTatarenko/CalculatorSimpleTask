@@ -52,14 +52,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func sexControlDidChange(_ sender: UISegmentedControl) {
-//        switch sender.selectedSegmentIndex {
-//        case 0:
-//            break
-//        case 1:
-//            break
-//        default:
-//            break
-//        }
+
         clear()
     }
     
@@ -75,10 +68,10 @@ class HomeViewController: UIViewController {
         let activity = activities[activityIndex]
         let activityValue = activity.value
         
-        guard let selectedSex = Sex(rawValue: sexSegmentControl.selectedSegmentIndex) else {return}
+        guard let selectedSex = Sex(rawValue: sexSegmentControl.selectedSegmentIndex) else { return }
         
         
-        var result = ""
+        
         
         switch selectedSex {
         case .male:
@@ -124,8 +117,8 @@ class HomeViewController: UIViewController {
     
     func configureSexSegmentControl() {
         sexSegmentControl.removeAllSegments()
-        sexSegmentControl.insertSegment(withTitle: Sex.male, at: 0, animated: false)
-        sexSegmentControl.insertSegment(withTitle: Sex.female, at: 1, animated: false)
+        sexSegmentControl.insertSegment(withTitle: Sex.male.title, at: 0, animated: false)
+        sexSegmentControl.insertSegment(withTitle: Sex.female.title, at: 1, animated: false)
         sexSegmentControl.selectedSegmentIndex = 0
     }
     

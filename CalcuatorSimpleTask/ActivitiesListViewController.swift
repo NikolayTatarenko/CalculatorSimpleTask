@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Foundation
 
 class ActivitiesListViewController: UIViewController {
-
+    
     @IBOutlet weak var label: UILabel!
     var activity: Activity?
     

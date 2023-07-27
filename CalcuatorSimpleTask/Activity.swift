@@ -5,8 +5,8 @@
 //  Created by Kolya Tatarenko on 25.07.2023.
 //
 
-import Foundation
 
+import UIKit
 
 enum Activity: CaseIterable {
     case none

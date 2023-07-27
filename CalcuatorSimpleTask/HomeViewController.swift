@@ -6,30 +6,20 @@
 //
 
 import UIKit
-
-//class Activity {
-//    let title: String
-//    let value: Int
-//
-//    init(title: String, value: Int){
-//        self.title = title
-//        self.value = value
-//    }
-//}
-
+import Foundation
 
 class HomeViewController: UIViewController {
-
-    @IBOutlet weak var sexSegmentControl: UISegmentedControl!
     
+    @IBOutlet weak var sexSegmentControl: UISegmentedControl!
     @IBOutlet weak var weightField: UITextField!
     @IBOutlet weak var heightField: UITextField!
     @IBOutlet weak var ageField: UITextField!
     @IBOutlet weak var activityField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
     @IBOutlet weak var resultLabel: UILabel!
+    
     let pickerView = UIPickerView()
-    let activities: Activity.AllCases = []
+    let activities: Activity.AllCases = [.none, .low, .medium, .high]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +42,6 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func sexControlDidChange(_ sender: UISegmentedControl) {
-
         clear()
     }
     
@@ -69,9 +58,6 @@ class HomeViewController: UIViewController {
         let activityValue = activity.value
         
         guard let selectedSex = Sex(rawValue: sexSegmentControl.selectedSegmentIndex) else { return }
-        
-        
-        
         
         switch selectedSex {
         case .male:
@@ -96,13 +82,12 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func clearDidTap(_ sender: Any) {
-       clear()
+        clear()
     }
     
     func resetResultLabel() {
         resultLabel.text = nil
     }
-    
     
     func clear() {
         weightField.text = nil
@@ -113,7 +98,6 @@ class HomeViewController: UIViewController {
         weightField.becomeFirstResponder()
         resetResultLabel()
     }
-    
     
     func configureSexSegmentControl() {
         sexSegmentControl.removeAllSegments()
@@ -143,9 +127,7 @@ class HomeViewController: UIViewController {
     func selectActivityBy(row: Int) {
         activityField.text = activities[row].title
     }
-
 }
-
 
 extension HomeViewController: UITextFieldDelegate {
     
